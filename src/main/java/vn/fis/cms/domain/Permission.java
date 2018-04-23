@@ -1,6 +1,9 @@
 package vn.fis.cms.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -23,10 +26,18 @@ public class Permission implements Serializable {
 	private String description;
 
 	private boolean islock;
+	
+	private String link;
 
 	@ManyToOne
 	@JoinColumn(name="GROUPID")
 	private GroupPermission groupPermission;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "PERMISION_METHOD", 
+ 		joinColumns = @JoinColumn(name = "PERMISSIONID", referencedColumnName = "ID"), 
+ 		inverseJoinColumns = @JoinColumn(name = "METHODID", referencedColumnName = "ID"))	
+ 	private Set<Method> method = new HashSet<Method>();
 
 	public Permission() {
 	}
@@ -69,6 +80,22 @@ public class Permission implements Serializable {
 
 	public void setGroupPermission(GroupPermission groupPermission) {
 		this.groupPermission = groupPermission;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public Set<Method> getMethod() {
+		return method;
+	}
+
+	public void setMethod(Set<Method> method) {
+		this.method = method;
 	}
 
 }

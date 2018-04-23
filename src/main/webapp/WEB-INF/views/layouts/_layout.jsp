@@ -58,9 +58,7 @@
 		<!--[if IE]>
 		<script src="<c:url value="/static/js/jquery-1.11.3.min.js"/>"></script>
 		<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
+		
 		<script src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
 
 		<!-- page specific plugin scripts -->

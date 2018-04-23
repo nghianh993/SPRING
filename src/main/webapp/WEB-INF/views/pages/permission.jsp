@@ -81,7 +81,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Thêm mới quyền</h4>
+                <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Thêm mới chức năng</h4>
             </div>
             <form class="form-horizontal" id="frmFormPermission">
                 <div class="modal-body">
@@ -92,13 +92,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Tên quyền</label>
+                        <label class="col-sm-3 control-label">Tên chức năng</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="txtname" name="txtname" placeholder="" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Nhóm quyền</label>
+                        <label class="col-sm-3 control-label">Đường dẫn</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtlink" name="txtlink" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Phương thức</label>
+                        <div class="col-sm-9">
+                            <select class="chosen-select form-control tag-input-style" id="slmethod" name="slmethod" multiple="multiple">
+                            	<c:forEach items="${lstmethod }" var="method">
+                            		<option value="${method.id}">
+                            			${method.name }
+                            		</option>
+                            	</c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Nhóm chức năng</label>
                         <div class="col-sm-8">
                             <select class="form-control slgroup slgrper" name="slgrper">
                             	<c:forEach var="entry" items="${lstData}"> 
@@ -126,7 +144,7 @@
                 </div>
             </form>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-sm btn-success btnaddper"><i class="fa fa-check-square-o"></i> Thêm mới</button>
+                <button type="submit" class="btn btn-sm btn-success btnModal"><i class="fa fa-check-square-o"></i> Thêm mới</button>
                 <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Đóng</button>
             </div>
         </div>

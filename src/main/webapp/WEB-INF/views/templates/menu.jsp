@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <div id="sidebar" class="sidebar responsive ace-save-state">
 	<script type="text/javascript">
 		try{ace.settings.loadState('sidebar')}catch(e){}
@@ -34,6 +36,7 @@
 	<!-- /.sidebar-shortcuts -->
 
 	<ul class="nav nav-list">
+		<sec:authorize url="/admin/home">
 		<li <c:if test="${active == 'home'}">class="active"</c:if>>
 			<a href="<c:url value='/admin/home' />"> 
 				<i class="menu-icon fa fa-tachometer"></i> 
@@ -41,15 +44,17 @@
 			</a> 
 			<b class="arrow"></b>
 		</li>
-		
-		<li <c:if test="${active == 'user'}">class="active"</c:if>>
+		</sec:authorize>
+		<sec:authorize url="/admin/account">
+		<li <c:if test="${active == 'user'}">class="active"</c:if>>		
 			<a href="<c:url value='/admin/account' />"> 
 				<i class="menu-icon fa fa-users"></i> 
 				<span class="menu-text">Quản lý tài khoản</span>
 			</a> 
 			<b class="arrow"></b>
 		</li>
-		<li <c:if test="${active == 'permission' || active == 'action'}">class="open"</c:if>>
+		</sec:authorize>
+		<li <c:if test="${active == 'permission' || active == 'group'}">class="open"</c:if>>
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-gg-circle"></i>
 				<span class="menu-text"> Phân quyền </span>
@@ -60,7 +65,7 @@
 			
 			<ul class="submenu nav-hide"  
 				<c:choose> 
-				<c:when test="${ (active == 'permission' || active == 'action'|| active == 'group') }">
+				<c:when test="${ (active == 'permission' || active == 'group') }">
 					style="display: block;"
 				</c:when>
 				<c:otherwise>
@@ -70,21 +75,14 @@
 				<li <c:if test="${active == 'permission'}">class="active"</c:if>>
 					<a href="<c:url value='/admin/permission' />">
 						<i class="menu-icon fa fa-star"></i>
-						Quản lý quyền
+						Quản lý chức năng
 					</a>
 					<b class="arrow"></b>
 				</li>
 				<li <c:if test="${active == 'group'}">class="active"</c:if>>
 					<a href="<c:url value='/admin/group' />">
 						<i class="menu-icon fa fa-object-group"></i>
-						Quản lý nhóm quyền
-					</a>
-					<b class="arrow"></b>
-				</li>
-				<li <c:if test="${active == 'action'}">class="active"</c:if>>
-					<a href="<c:url value='/admin/action' />">
-						<i class="menu-icon fa fa-shield"></i>
-						Phân quyền chức năng
+						Quản lý quyền hệ thống
 					</a>
 					<b class="arrow"></b>
 				</li>

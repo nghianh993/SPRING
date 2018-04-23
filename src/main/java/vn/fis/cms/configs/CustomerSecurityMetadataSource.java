@@ -13,40 +13,33 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.security.access.SecurityConfig;
 
-import vn.fis.cms.domain.Action;
 import vn.fis.cms.domain.Permission;
-import vn.fis.cms.services.IActionService;
+import vn.fis.cms.services.IPermissionService;
 
 public class CustomerSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private Map<String, List<ConfigAttribute>> resourceMap = null;
     private PathMatcher pathMatcher = new AntPathMatcher();
     
-    private IActionService actionService;
+    private IPermissionService permissionService;
     
-    public CustomerSecurityMetadataSource(IActionService actionService) {
+    public CustomerSecurityMetadataSource(IPermissionService permissionService) {
         super();
-        this.actionService = actionService;
+        this.permissionService = permissionService;
         resourceMap = loadResourceMatchAuthority();
     }
     
     private Map<String, List<ConfigAttribute>> loadResourceMatchAuthority() {
-        List<Action> urlRoles = actionService.GetListAction();
+        List<Permission> lstAction = permissionService.GetAllPermission();
         Map<String, List<ConfigAttribute>> map = new HashMap<>();
-        if (urlRoles != null && !urlRoles.isEmpty()) {
-            for (Action urlRole : urlRoles) {
-                List<Permission> lstpermission = new ArrayList<Permission>(urlRole.getPermissions());
-                if (lstpermission != null && lstpermission.size() > 0) {
-                    List<ConfigAttribute> list = new ArrayList<>();
-                    ConfigAttribute config;
-                    for (Permission permission : lstpermission) {
-                        config = new SecurityConfig(permission.getCode());
-                        list.add(config);
-                    }
-                    map.put(urlRole.getLink(), list);
-                }
+        if (lstAction != null && !lstAction.isEmpty()) { 
+            for (Permission action : lstAction) {
+                List<ConfigAttribute> list = new ArrayList<>();
+                ConfigAttribute config = new SecurityConfig(action.getCode());
+                list.add(config);
+                map.put(action.getLink(), list);
             }
-        } else {
+            
         }
         return map;
     }
@@ -57,7 +50,6 @@ public class CustomerSecurityMetadataSource implements FilterInvocationSecurityM
         if (resourceMap == null) {
             resourceMap = loadResourceMatchAuthority();
         }
-
         for (Map.Entry<String, List<ConfigAttribute>> resURL : resourceMap.entrySet()) {
             if (pathMatcher.match(resURL.getKey(), url)) {
             	System.out.println("URL :" + "'" + url + "'");

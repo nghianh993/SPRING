@@ -55,19 +55,10 @@
        <put-attribute name="formlogin" value="/WEB-INF/views/pages/login.jsp" />  
    </definition>
 
-<<<<<<< HEAD
 	<!-- AJAX -->
 	<definition name="pagging_account" template="/WEB-INF/views/pagging/pagging_account.jsp" />
 	<definition name="pagging_account" template="/WEB-INF/views/pagging/pagging_group.jsp" />
 	<definition name="group_permission" template="/WEB-INF/views/ajaxView/lstGroupPermission.jsp" />
 	<definition name="group_action" template="/WEB-INF/views/ajaxView/lstGroupAction.jsp" />
 	
-=======
-    <!-- Permission -->
-    <definition name="permission" extends="admin">
-        <put-attribute name="title" value="Quản lý quyền" />
-        <put-attribute name="body" value="/WEB-INF/views/pages/permission.jsp" />
-    </definition>
-
->>>>>>> b4bfcf58ef686c296f92c9b213c21c9e8b21e4b9
 </tiles-definitions>

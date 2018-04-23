@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-import vn.fis.cms.services.IActionService;
+import vn.fis.cms.services.IPermissionService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,11 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 	
 	@Autowired
-	private IActionService actionService;
+	private IPermissionService permissionService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.inMemoryAuthentication().withUser("admin@fis.vn").password("123456").roles("ADMIN");
 		auth.userDetailsService(userDetailsService);
 	}
 
@@ -39,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/notfound").anonymous()
 		.antMatchers("/admin/**").authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
             public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-                FilterInvocationSecurityMetadataSource newSource = new CustomerSecurityMetadataSource(actionService);
+                FilterInvocationSecurityMetadataSource newSource = new CustomerSecurityMetadataSource(permissionService);
                 AccessDecisionManager accessDecisionManager = new CustomerAccessDecisionManager();
                 fsi.setSecurityMetadataSource(newSource);
                 fsi.setAccessDecisionManager(accessDecisionManager);
@@ -48,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         })
 		.antMatchers("/api/**").authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
             public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-                FilterInvocationSecurityMetadataSource newSource = new CustomerSecurityMetadataSource(actionService);
+                FilterInvocationSecurityMetadataSource newSource = new CustomerSecurityMetadataSource(permissionService);
                 AccessDecisionManager accessDecisionManager = new CustomerAccessDecisionManager();
                 fsi.setSecurityMetadataSource(newSource);
                 fsi.setAccessDecisionManager(accessDecisionManager);

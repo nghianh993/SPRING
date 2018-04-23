@@ -12,4 +12,7 @@ import vn.fis.cms.domain.Permission;
 public interface PermissionRepository extends JpaRepository<Permission, Long>{
 	@Query( "select o from Permission o where o.id in :ids" )
 	Set<Permission> findByInventoryIdIn(@Param("ids") List<Long> ids);
+	
+	@Query( "select o from Permission o order by o.code" )
+	List<Permission> findAllOrderByCodeAsc();
 }

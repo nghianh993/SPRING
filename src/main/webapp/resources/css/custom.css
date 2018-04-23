@@ -1,0 +1,50 @@
+.footer .footer-inner .footer-content {
+	line-height: 20px;
+}
+
+/*home page*/
+.hd-fuc {
+    margin: 0;
+    background-color: #e8e8e8;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 20px;
+}
+.viewpage {
+    text-align: right;
+    vertical-align: middle;
+    height: 100%;
+    padding: 10px 20px 0 0;
+}
+.dataTables_info {
+    font-size: 14px;
+}
+.lo-paging-0 {
+    padding: 0 !important;
+}
+.modal {
+	margin-top: 50px;
+}
+.control-label {
+	text-align: left !important;
+}
+
+.operation {
+    background-color: cornsilk;
+}
+
+.ad-function {
+	text-align: right;
+	margin: 10px;
+}
+
+label.error {
+	color: red;
+    font-size: 14px;
+    padding: 0 5px;
+}

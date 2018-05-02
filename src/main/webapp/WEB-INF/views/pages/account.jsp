@@ -5,16 +5,19 @@
 
 <script src="<c:url value="/static/custom/js/account/account.js"/>"></script>
 
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active"><i class="ace-icon fa fa-home home-icon"></i>
+			<a href="<c:url value='/admin/home' />">Trang chủ </a>
+		</li>
+		<li>
+			Quản lý tài khoản
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
 <div class="page-content">
-	<div class="page-header">
-		<h1>
-			Trang chủ <small> <i
-				class="ace-icon fa fa-angle-double-right"></i> Quản lý tài khoản
-			</small>
-		</h1>
-	</div>
-	<!-- /.page-header -->
-	
 	<div class="row">
 	<div class="col-xs-12 lo-paging-0">
             <div class="col-md-2"></div>

@@ -13,4 +13,8 @@ public interface IGroupPermissionService {
 	Optional<GroupPermission> findById(Long id);
 	
 	void AddNewGroup(String name, Long parentId);
+	
+	GroupPermissionModel GetDetailGroup(Long id);
+	
+	boolean UpdateGroup(GroupPermissionModel model);
 }

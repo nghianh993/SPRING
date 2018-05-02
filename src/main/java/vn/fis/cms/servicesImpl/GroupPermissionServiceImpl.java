@@ -57,6 +57,37 @@ public class GroupPermissionServiceImpl implements IGroupPermissionService{
 	public Optional<GroupPermission> findById(Long id) {
 		return groupPermissionRepository.findById(id);
 	}
+
+	@Override
+	public GroupPermissionModel GetDetailGroup(Long id) {
+		Optional<GroupPermission> group = groupPermissionRepository.findById(id);
+		GroupPermissionModel model = new GroupPermissionModel();
+		if(group.isPresent()) {
+			GroupPermission data = group.get();
+			model.setName(data.getName());
+			model.setParentId(data.getParentid());
+			return model;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public boolean UpdateGroup(GroupPermissionModel model) {
+		try {
+			Optional<GroupPermission> group = groupPermissionRepository.findById(model.getId());
+			if(group.isPresent()) {
+				GroupPermission data = group.get();
+				data.setName(model.getName());
+				data.setParentid(model.getParentId());
+				groupPermissionRepository.save(data);
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
 	
 }

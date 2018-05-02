@@ -3,3 +3,4 @@ encoding//src/main/java/vn/fis/cms/controllers/AccountController.java=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/resources/messages.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/account.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/pages/organization.jsp=UTF-8

@@ -13,4 +13,7 @@ public interface IRoleService {
 	
 	boolean EditRole(GroupModel model);
 	
+	boolean AddRole(GroupModel model);
+	
+	boolean DeleteGroup(Long id);
 }

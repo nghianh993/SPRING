@@ -12,13 +12,10 @@
 
 <div class="page-content">
 
-	<div class="page-header">
-		<h1>Màn hình chính</h1>
-	</div>
-	<!-- /.page-header -->
-
 	<div class="row">
-		<div class="col-xs-12"></div>
+		<div class="col-xs-12">
+			<h1 class="center">Chào mừng bạn đến với hệ thống quản trị yêu cầu khách hàng</h1>
+		</div>
 	</div>
 
 </div>

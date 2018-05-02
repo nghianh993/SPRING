@@ -19,17 +19,17 @@ import vn.fis.cms.services.IPermissionService;
 import vn.fis.cms.services.IRoleService;
 
 @Service
-public class RoleServiceImpl implements IRoleService{
+public class RoleServiceImpl implements IRoleService {
 
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	IAccountService accountService;
-	
+
 	@Autowired
 	IPermissionService permissionService;
-	
+
 	@Override
 	public Page<Role> GetListRole(int pageIndex, int pageSize) {
 		Pageable pageable = PageRequest.of(pageIndex, pageSize);
@@ -40,32 +40,60 @@ public class RoleServiceImpl implements IRoleService{
 	public GroupModel getGroupDetail(Long id) {
 		GroupModel groupModel = new GroupModel();
 		Optional<Role> role = roleRepository.findById(id);
-		if(!role.isPresent())		
+		if (!role.isPresent())
 			return null;
 		Role data = role.get();
 		groupModel.setName(data.getRolename());
 		groupModel.setLstuser(data.getUsers().stream().map(User::getId).collect(Collectors.toList()));
 		groupModel.setLstPermision(data.getPermissions().stream().map(Permission::getId).collect(Collectors.toList()));
-		
+
 		return groupModel;
 	}
 
 	@Override
 	public boolean EditRole(GroupModel model) {
 		try {
-				Optional<Role> role = roleRepository.findById(model.getId());
-				if(!role.isPresent())
-					return false;
-				Role data = role.get();
-				data.setRolename(model.getName());
-				roleRepository.save(data);
-				data.setUsers(accountService.findByInventoryIdIn(model.getLstuser()));
-				data.setPermissions(permissionService.findByInventoryIdIn(model.getLstPermision()));
-				roleRepository.save(data);
-				return true;
+			Optional<Role> role = roleRepository.findById(model.getId());
+			if (!role.isPresent())
+				return false;
+			Role data = role.get();
+			data.setRolename(model.getName());
+			roleRepository.save(data);
+			data.setUsers(accountService.findByInventoryIdIn(model.getLstuser()));
+			data.setPermissions(permissionService.findByInventoryIdIn(model.getLstPermision()));
+			roleRepository.save(data);
+			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean AddRole(GroupModel model) {
+		try {
+			Role role = new Role();
+			role.setRolename(model.getName());
+			roleRepository.save(role);
+			role.setUsers(accountService.findByInventoryIdIn(model.getLstuser()));
+			role.setPermissions(permissionService.findByInventoryIdIn(model.getLstPermision()));
+			roleRepository.save(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean DeleteGroup(Long id) {
+		try {
+			roleRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
 	
+	
+
 }

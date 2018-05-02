@@ -99,6 +99,40 @@ public class PermissionController {
 		return result;
 	}
 	
+	@RequestMapping(value = {"api/admin/permission/groupdetail"}, method = RequestMethod.POST)
+	public @ResponseBody AjaxResultModel<GroupPermissionModel> GetGroupDetail(Long id) {
+		AjaxResultModel<GroupPermissionModel> result = new AjaxResultModel<GroupPermissionModel>();
+		try {
+			GroupPermissionModel model = groupPermissionService.GetDetailGroup(id);
+			result.setResult(true);
+			result.setMessage(messageSource.getMessage("S001", null, Locale.getDefault()));
+			result.setResultData(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setResult(false);
+			result.setMessage(messageSource.getMessage("E002", null, Locale.getDefault()));
+			return result;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = {"api/admin/permission/updategroup"}, method = RequestMethod.POST)
+	public @ResponseBody AjaxResult UpdateGroup(@ModelAttribute GroupPermissionModel model) {
+		AjaxResult result = new AjaxResult();
+		try {
+			boolean check = groupPermissionService.UpdateGroup(model);
+			result.setResult(check);
+			result.setMessage(messageSource.getMessage("S001", null, Locale.getDefault()));			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setResult(false);
+			result.setMessage(messageSource.getMessage("E002", null, Locale.getDefault()));
+			return result;
+		}
+		return result;
+	}
+	
+	
 	@RequestMapping(value = {"api/admin/getpermission"}, method = RequestMethod.POST)
 	public @ResponseBody AjaxResult GetPermissionById(long id) {
 		AjaxResult result = new AjaxResult();

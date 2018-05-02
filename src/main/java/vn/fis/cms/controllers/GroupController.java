@@ -93,8 +93,8 @@ public class GroupController {
 		return result;
 	}
 	
-	@RequestMapping(value = {"api/admin/group/edit"}, method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody AjaxResult EditAction(@ModelAttribute GroupModel model) {
+	@RequestMapping(value = {"api/admin/group/edit"}, method = RequestMethod.POST)
+	public @ResponseBody AjaxResult EditGroup(@ModelAttribute GroupModel model) {
 		AjaxResult result = new AjaxResult();
 		try {
 			boolean check = roleService.EditRole(model);
@@ -105,6 +105,44 @@ public class GroupController {
 				result.setResult(false);
 				result.setCode(0);
 			}
+			result.setMessage(messageSource.getMessage("S001", null, Locale.getDefault()));			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setResult(false);
+			result.setMessage(messageSource.getMessage("E002", null, Locale.getDefault()));
+			return result;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = {"api/admin/group/add"}, method = RequestMethod.POST)
+	public @ResponseBody AjaxResult AddGroup(@ModelAttribute GroupModel model) {
+		AjaxResult result = new AjaxResult();
+		try {
+			boolean check = roleService.AddRole(model);
+			if(check) {
+				result.setCode(1);
+				result.setResult(true);
+			}else {
+				result.setResult(false);
+				result.setCode(0);
+			}
+			result.setMessage(messageSource.getMessage("S001", null, Locale.getDefault()));			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setResult(false);
+			result.setMessage(messageSource.getMessage("E002", null, Locale.getDefault()));
+			return result;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = {"api/admin/group/delete"}, method = RequestMethod.POST)
+	public @ResponseBody AjaxResult DeleteGroup(long id) {
+		AjaxResult result = new AjaxResult();
+		try {
+			boolean check = roleService.DeleteGroup(id);
+			result.setResult(check);
 			result.setMessage(messageSource.getMessage("S001", null, Locale.getDefault()));			
 		} catch (Exception e) {
 			e.printStackTrace();

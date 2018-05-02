@@ -20,16 +20,28 @@ $(document).ready(function() {
 		
 		$(this).closest('table').find('tbody > tr').each(function(){
 			var row = this;
-			if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-			else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+			if(th_checked) {
+				$(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+				$(".btneditall, .btndeleteall").removeClass("disabled");
+			}
+			else {
+				$(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+				$(".btneditall, .btndeleteall").addClass("disabled");
+			}
 		});
 	});
 	
 	$('#listtable').on('click', 'td input[type=checkbox]' , function(){
 		var $row = $(this).closest('tr');
 		if($row.is('.detail-row ')) return;
-		if(this.checked) $row.addClass(active_class);
-		else $row.removeClass(active_class);
+		if(this.checked) {
+			$row.addClass(active_class);
+			$(".btneditall, .btndeleteall").removeClass("disabled");
+		}
+		else {
+			 $row.removeClass(active_class);
+			 $(".btneditall, .btndeleteall").addClass("disabled");
+		}
 	});	
 
     if (totalpage > 1) {
@@ -71,15 +83,45 @@ $(document).ready(function() {
 				$("#slper").val(resp.resultData.lstPermision).trigger("chosen:updated");
 				$("#GroupModal .modal-title").html('<i class="fa fa-check-square-o"></i> Cập nhật nhóm quyền')
 				$(".btnModal").attr("data-id", id);
-				$(".btnModal").text("Cập nhật");
-				$(".btnModal").removeClass("btnaddac");
-				$(".btnModal").addClass("btnupdateac");
+				$(".btnModal").html('<i class="fa fa-check-square-o"></i> Cập nhật');
+				$(".btnModal").removeClass("btnadd");
+				$(".btnModal").addClass("btnupdate");
 				$("#GroupModal").modal("show");
             }else{
 				fis_vnp_js.fis_vnp().showmessage("Hệ thống gặp sự cố khi thêm lấy dữ liệu. Vui lòng thao tác lại!!!", "error");
 			}
         });   
-    });
+	});
+	
+	$(document).on("click", ".btnaddnew", function() {
+		$(".btnModal").addClass("btnadd");
+		$(".btnModal").removeClass("btnupdate");
+		$(".btnModal").html('<i class="fa fa-check-square-o"></i> Thêm mới');
+		$("#GroupModal .modal-title").html('<i class="fa fa-check-square-o"></i> Thêm mới nhóm quyền');
+		$("#txtrolename").val("");
+		$('#sluser').val(0).trigger("chosen:updated");
+		$("#slper").val(0).trigger("chosen:updated");
+		$("#GroupModal").modal("show");
+	});
+
+	$(document).on("click", ".btndelete", function(){
+		var _this = $(this);
+		var id = _this.attr("data-id");
+		swal({
+            title: "Thông báo",
+            text: "Bạn có chắc muốn xóa nhóm quyền này không?",
+            type: "warning",
+            dangerMode: true,
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Đóng",
+            closeOnConfirm: false
+        }).then((isConfirm) => { 
+            if (isConfirm) {
+        		fis_vnp_js.fis_vnp().postDataAndReloadPage(root + "/api/admin/group/delete", {id:id}, "Xóa nhóm quyền thành công", "Hệ thống gặp sự cố khi xóa dữ liệu. Vui lòng thao tác lại!!!");
+            }
+        });
+	});
 
     $(document).on("click", ".btnModal", function() {
 		$("#frmForm").submit();
@@ -115,23 +157,23 @@ $(document).ready(function() {
                 lstPermision: $("#slper").val().toString()
 			}
 			$.LoadingOverlay("show");
-			if($(".btnModal").hasClass("btnaddac")){
+			if($(".btnModal").hasClass("btnadd")){
 				$.post(root + "/api/admin/group/add", data, function(resp) {
 					$.LoadingOverlay("hide");
 					if(resp.result){
 						if(resp.code == 1){
 							fis_vnp_js.fis_vnp().showmessage("Thêm mới nhóm quyền thành công", "success");
-							$("#permissionModal").modal("hide");
+							$("#GroupModal").modal("hide");
 							location.reload();
 						}else{
-							fis_vnp_js.fis_vnp().showmessage("Không thêm được nhóm quyền vào nhóm chức năng!!!", "error");
+							fis_vnp_js.fis_vnp().showmessage("Không thêm được nhóm quyền!!!", "error");
 						}
 					}else{
 						fis_vnp_js.fis_vnp().showmessage("Hệ thống gặp sự cố khi thêm mới dữ liệu. Vui lòng thao tác lại!!!", "error");
 					}
 				});
 			}else{
-				if($(".btnModal").hasClass("btnupdateac")){
+				if($(".btnModal").hasClass("btnupdate")){
 					data.id = parseInt($(".btnModal").attr("data-id"));
 					$.post(root + "/api/admin/group/edit", data, function(resp) {
 						$.LoadingOverlay("hide");

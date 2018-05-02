@@ -46,19 +46,28 @@
        <put-attribute name="body" value="/WEB-INF/views/pages/group.jsp" />
    </definition>
 	   
+    <!-- ORGANIZATION -->
+    <definition name="organization" extends="admin">  
+       <put-attribute name="title" value="Quản lý danh mục tổ chức" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/organization.jsp" />
+    </definition>
+
    <!-- NOTFOUND -->
    <definition name="notfound" template="/WEB-INF/views/pages/notfound.jsp" />
  
-   <!-- LOGIN -->
-   <definition name="login" extends="loginTmp">  
-       <put-attribute name="title" value="Đăng nhập" />  
-       <put-attribute name="formlogin" value="/WEB-INF/views/pages/login.jsp" />  
-   </definition>
+    <!-- LOGIN -->
+    <definition name="login" extends="loginTmp">  
+        <put-attribute name="title" value="Đăng nhập" />  
+        <put-attribute name="formlogin" value="/WEB-INF/views/pages/login.jsp" />  
+    </definition>
 
-	<!-- AJAX -->
+    <!-- AJAX -->
 	<definition name="pagging_account" template="/WEB-INF/views/pagging/pagging_account.jsp" />
 	<definition name="pagging_account" template="/WEB-INF/views/pagging/pagging_group.jsp" />
 	<definition name="group_permission" template="/WEB-INF/views/ajaxView/lstGroupPermission.jsp" />
 	<definition name="group_action" template="/WEB-INF/views/ajaxView/lstGroupAction.jsp" />
+
+    <!-- PARTIAL VIEW -->
+    <definition name="organization_select" template="/WEB-INF/views/partialView/organization_select.jsp" />
 	
 </tiles-definitions>

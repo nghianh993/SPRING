@@ -48,3 +48,11 @@ label.error {
     font-size: 14px;
     padding: 0 5px;
 }
+
+.ad-form-fn {
+    padding: 10px 0;
+}
+
+.ad-form-fn-func:hover {
+    color: red;
+}

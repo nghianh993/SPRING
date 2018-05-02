@@ -5,16 +5,19 @@
 
 <script src="<c:url value="/static/custom/js/group/group.js"/>"></script>
 
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active"><i class="ace-icon fa fa-home home-icon"></i>
+			<a href="<c:url value='/admin/home' />">Trang chủ </a>
+		</li>
+		<li>
+			Quản lý nhóm quyền
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
 <div class="page-content">
-	<div class="page-header">
-		<h1>
-			Trang chủ <small> <i
-				class="ace-icon fa fa-angle-double-right"></i> Quản lý nhóm quyền
-			</small>
-		</h1>
-	</div>
-	<!-- /.page-header -->
-	
 	<div class="row">
 	<div class="col-xs-12 lo-paging-0">
             <div class="col-md-2"></div>
@@ -32,19 +35,19 @@
 		<div class="space"></div>
         <div class="hd-fuc">
             <div class="col-md-9 col-xs-12 btn-area-action">
-                <button class="btn btn-sm btn-primary btn-blue btnsave" data-toggle="modal" data-target="#userModal">
+                <button class="btn btn-sm btn-primary btn-blue btnaddnew" data-toggle="modal" data-target="#userModal">
                     <i class="fa fa-check-square bigger-125"></i>
                     Thêm mới
                 </button>
-                <button class="btn btn-sm btn-default btnhide disabled">
+                <!-- <button class="btn btn-sm btn-default btneditall disabled">
                     <i class="fa fa-edit bigger-125"></i>
                     Sửa
                 </button>
 
-                <button class="btn btn-sm btn-danger btndelete disabled">
+                <button class="btn btn-sm btn-danger btndeleteall disabled">
                     <i class="fa fa-trash-o bigger-125"></i>
                     Xóa
-                </button>
+                </button> -->
             </div>
             <div class="col-md-3 col-xs-12 viewpage">
                 <div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">
@@ -141,7 +144,7 @@
                </div>
              </div>
              <div class="form-group">
-                  <label class="col-sm-3 control-label">Phân quyền</label>
+                  <label class="col-sm-3 control-label">Phân quyền chức năng</label>
                   <div class="col-sm-9">
                       <select class="chosen-select form-control tag-input-style" id="slper" name="slper" multiple="multiple">
                       <c:forEach var="entry" items="${lstDataPer}"> 

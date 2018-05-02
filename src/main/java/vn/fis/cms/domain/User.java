@@ -42,6 +42,10 @@ public class User implements Serializable {
 	private String password;
 
 	private String phone;
+	
+	@ManyToOne
+	@JoinColumn(name="ORGANIZATIONID")
+	private Organization organization;
 
 	//bi-directional many-to-one association to Balance
 	@OneToMany(mappedBy="user")
@@ -217,5 +221,13 @@ public class User implements Serializable {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 }

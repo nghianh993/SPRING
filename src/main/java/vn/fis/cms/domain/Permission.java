@@ -31,6 +31,7 @@ public class Permission implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="GROUPID")
+	@OrderBy("code ASC")
 	private GroupPermission groupPermission;
 	
 	@ManyToMany(fetch=FetchType.EAGER)

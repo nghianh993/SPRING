@@ -7,6 +7,7 @@ import vn.fis.cms.domain.Permission;
 public class GroupPermissionModel {
 	private long id;
 	private String name;
+	private Long parentId;
 	private List<Permission> permissions = new ArrayList<Permission>();
 	
 	public long getId() {
@@ -26,5 +27,11 @@ public class GroupPermissionModel {
 	}
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
+	}
+	public Long getParentId() {
+		return parentId;
+	}
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 }

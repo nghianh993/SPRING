@@ -4,13 +4,19 @@
 
 <script src="<c:url value="/static/custom/js/permission/permission.js"/>"></script>
 
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active"><i class="ace-icon fa fa-home home-icon"></i>
+			<a href="<c:url value='/admin/home' />">Trang chủ </a>
+		</li>
+		<li>
+			Quản lý quyền hệ thống
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
 <div class="page-content">
-	<div class="page-header">
-		<h1>
-			Trang chủ <small> <i class="ace-icon fa fa-angle-double-right"></i> Quản lý quyền hệ thống </small>
-		</h1>
-	</div>
-	<!-- /.page-header -->
 	<div class="col-xs-12">
 		<div class="dd" id="nestable">
 			
@@ -36,10 +42,10 @@
 								
 								<c:if test="${ item.getPermissions() != null && item.getPermissions().size() > 0 }">
 									<ol class="dd-list">
-										<c:forEach var="permission" items="${item.getPermissions() }">
+										<c:forEach var="permission" items="${ item.getPermissions() }">
 											<li class="dd-item">
 													<div class="dd-handle operation">
-														${ permission.description } - ${ permission.code }
+														 ${ permission.code } - ${ permission.description }
 														<div class="pull-right action-buttons">
 															<a class="blue btneditper" href="javascript: ;" title="Sửa" data-id="${permission.id }"> 
 																<i class="ace-icon fa fa-pencil bigger-130"></i>
@@ -176,7 +182,7 @@
                 </div>
             </form>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-sm btn-success btnaddgr"><i class="fa fa-check-square-o"></i> Thêm mới</button>
+                <button type="submit" class="btn btn-sm btn-success btnGroupModal"><i class="fa fa-check-square-o"></i> Thêm mới</button>
                 <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Đóng</button>
             </div>
         </div>

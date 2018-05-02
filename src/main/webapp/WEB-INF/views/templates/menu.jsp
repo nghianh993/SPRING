@@ -36,7 +36,7 @@
 	<!-- /.sidebar-shortcuts -->
 
 	<ul class="nav nav-list">
-		<sec:authorize url="/admin/home">
+		<sec:authorize access="hasAuthority('1010000001')">
 		<li <c:if test="${active == 'home'}">class="active"</c:if>>
 			<a href="<c:url value='/admin/home' />"> 
 				<i class="menu-icon fa fa-tachometer"></i> 
@@ -45,7 +45,16 @@
 			<b class="arrow"></b>
 		</li>
 		</sec:authorize>
-		<sec:authorize url="/admin/account">
+		<sec:authorize access="hasAuthority('4010000001')">
+		<li <c:if test="${active == 'organization'}">class="active"</c:if>>		
+			<a href="<c:url value='/admin/organization' />"> 
+				<i class="menu-icon fa fa-sitemap"></i> 
+				<span class="menu-text">Sơ đồ tổ chức</span>
+			</a> 
+			<b class="arrow"></b>
+		</li>
+		</sec:authorize>
+		<sec:authorize access="hasAuthority('3010000001')">
 		<li <c:if test="${active == 'user'}">class="active"</c:if>>		
 			<a href="<c:url value='/admin/account' />"> 
 				<i class="menu-icon fa fa-users"></i> 
@@ -54,6 +63,7 @@
 			<b class="arrow"></b>
 		</li>
 		</sec:authorize>
+		<sec:authorize access="hasAnyAuthority('2010000001', '2010000002')">
 		<li <c:if test="${active == 'permission' || active == 'group'}">class="open"</c:if>>
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-gg-circle"></i>
@@ -72,6 +82,7 @@
 					style="display: none;"
 				</c:otherwise>
 				</c:choose>>
+				<sec:authorize access="hasAuthority('2010000001')">
 				<li <c:if test="${active == 'permission'}">class="active"</c:if>>
 					<a href="<c:url value='/admin/permission' />">
 						<i class="menu-icon fa fa-star"></i>
@@ -79,6 +90,8 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
+				</sec:authorize>
+				<sec:authorize access="hasAuthority('2010000002')">
 				<li <c:if test="${active == 'group'}">class="active"</c:if>>
 					<a href="<c:url value='/admin/group' />">
 						<i class="menu-icon fa fa-object-group"></i>
@@ -86,8 +99,10 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
+				</sec:authorize>
 			</ul>
 		</li>
+		</sec:authorize>
 	</ul>
 	<!-- /.nav-list -->
 
